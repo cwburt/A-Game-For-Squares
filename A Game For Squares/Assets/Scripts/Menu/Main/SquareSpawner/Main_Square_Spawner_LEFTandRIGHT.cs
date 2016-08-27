@@ -15,7 +15,7 @@ public class Main_Square_Spawner_LEFTandRIGHT : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         WhenToSpawn++;
-        if(WhenToSpawn == 20)
+        if(WhenToSpawn == 15)
         {
             Spawn(TheSquare);
             WhenToSpawn = 0;
@@ -23,7 +23,7 @@ public class Main_Square_Spawner_LEFTandRIGHT : MonoBehaviour {
 	}
     void Spawn(GameObject _Square)
     {
-        spawn_position = new Vector2(transform.position.x, transform.position.y);
+        spawn_position = new Vector2(transform.position.x, transform.position.y + Random.Range(-0.3f,0.3f));
         Instantiate(TheSquare, spawn_position, Quaternion.identity);
     }
 }

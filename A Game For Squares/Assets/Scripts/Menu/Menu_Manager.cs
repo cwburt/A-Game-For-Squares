@@ -31,7 +31,11 @@ public class Menu_Manager : MonoBehaviour {
     //**OPTIONS**//
     //**CONTROLS**//
     //**QUIT**//
+    //**MISC**//
+    private bool isCameraPeak;
+    private bool isAtTheBottom;
 
+    private bool isLerpingDone;
 
     #region //**PROPERTIES**//
     public bool prop_IsEnterPressed
@@ -63,10 +67,18 @@ public class Menu_Manager : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
+
         CurrentMenu = MENU.Title;
+        //main//
         MainIndex = 0;
         firstGo = true;
+
+        //misc//
+        isCameraPeak = false;
+        isAtTheBottom = false;
+
+        isLerpingDone = false;
 	}
 	
 	// Update is called once per frame
@@ -76,8 +88,7 @@ public class Menu_Manager : MonoBehaviour {
         {
             case MENU.Title:
                 {
-                    
-                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, 0, -10), 5.0f * Time.deltaTime);
+                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.rotation = Quaternion.Lerp(TheCamera.transform.rotation, new Quaternion(0, 0, 0, 0), 2.0f * Time.deltaTime);
                     if (Input.GetKeyDown(KeyCode.Return) && isEnterPressed == false)
                     {
@@ -87,27 +98,36 @@ public class Menu_Manager : MonoBehaviour {
                 break;
             case MENU.Main:
                 {
-                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, -8, -10), 2.0f * Time.deltaTime);
+                    if(!isLerpingDone)
+                        CameraLerpZ(-30);
+                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, -8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 0), 2.0f * Time.deltaTime);
                     MainMenuSelection();
                 }
                 break;
             case MENU.Options:
                 {
-                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(8, 0, -10), 2.0f * Time.deltaTime);
+                    if(!isLerpingDone)
+                        CameraLerpZ(-30);
+                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 90), 2.0f * Time.deltaTime);
                 }
                 break;
             case MENU.Controls:
                 {
-                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(-8, 0, -10), 2.0f * Time.deltaTime);
+                    if (!isLerpingDone)
+                        CameraLerpZ(-30);
+                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(-8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 270), 2.0f * Time.deltaTime);
                 }
                 break;
             case MENU.Quit:
                 {
-                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position,new Vector3(0, 8, -10), 2.0f * Time.deltaTime);
+                    if (!isLerpingDone)
+                        CameraLerpZ(-30);
+                    TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position,new Vector3(0, 8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 180),2.0f * Time.deltaTime);
+                    
                 }
                 break;
         }
@@ -159,14 +179,21 @@ public class Menu_Manager : MonoBehaviour {
                     break;
                 case 1:
                     CurrentMenu = MENU.Options;
+                    isLerpingDone = false;
+                    isAtTheBottom = false;
                     break;
                 case 2:
                     CurrentMenu = MENU.Controls;
+                    isLerpingDone = false;
+                    isAtTheBottom = false;
                     break;
                 case 3:
                     CurrentMenu = MENU.Quit;
+                    isLerpingDone = false;
+                    isAtTheBottom = false;
                     break;
             }
+
         }
     }
     void Expand(GameObject _object) //Game Object git big and moves it to the right a little (Only for the Main Menu)
@@ -186,5 +213,31 @@ public class Menu_Manager : MonoBehaviour {
             _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.02f, _object.transform.localScale.y - 0.02f, _object.transform.localScale.z);
         }
     }
- 
+    //**MISC FUNCTIONS**//
+    void CameraLerpZ(float To)
+    {
+        //Debug.Log(TheCamera.transform.position.z);
+        //Debug.Log(To - 2);
+        if (TheCamera.transform.position.z < (To + 2) && isAtTheBottom == false)
+            isCameraPeak = true;
+        
+
+        if(!isCameraPeak && !isAtTheBottom)
+            TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(TheCamera.transform.position.x, TheCamera.transform.position.y, To), 2.0f * Time.deltaTime);
+        else if(isCameraPeak && !isAtTheBottom)
+            TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(TheCamera.transform.position.x, TheCamera.transform.position.y, -10), 2.0f * Time.deltaTime);
+
+
+        if(TheCamera.transform.position.z > -10.003 && isCameraPeak == true)
+        {
+            TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(TheCamera.transform.position.x, TheCamera.transform.position.y, -10), 1);
+            isCameraPeak = false;
+            isAtTheBottom = true;
+            isLerpingDone = true;
+        }
+
+        Debug.Log("C " + isCameraPeak);
+        Debug.Log("B " + isAtTheBottom);
+        Debug.Log("L" + isLerpingDone);
+    }
 }

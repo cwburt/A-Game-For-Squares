@@ -66,7 +66,6 @@ public class Menu_Manager : MonoBehaviour {
 
 
 
-    // Use this for initialization
     void Awake () {
 
         CurrentMenu = MENU.Title;
@@ -79,9 +78,7 @@ public class Menu_Manager : MonoBehaviour {
         isAtTheBottom = false;
 
         isLerpingDone = false;
-	}
-	
-	// Update is called once per frame
+	}	
 	void Update ()
     {
 	    switch(CurrentMenu)
@@ -99,7 +96,7 @@ public class Menu_Manager : MonoBehaviour {
             case MENU.Main:
                 {
                     if(!isLerpingDone)
-                        CameraLerpZ(-30);
+                        CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, -8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 0), 2.0f * Time.deltaTime);
                     MainMenuSelection();
@@ -108,7 +105,7 @@ public class Menu_Manager : MonoBehaviour {
             case MENU.Options:
                 {
                     if(!isLerpingDone)
-                        CameraLerpZ(-30);
+                        CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 90), 2.0f * Time.deltaTime);
                 }
@@ -116,7 +113,7 @@ public class Menu_Manager : MonoBehaviour {
             case MENU.Controls:
                 {
                     if (!isLerpingDone)
-                        CameraLerpZ(-30);
+                        CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(-8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 270), 2.0f * Time.deltaTime);
                 }
@@ -124,7 +121,7 @@ public class Menu_Manager : MonoBehaviour {
             case MENU.Quit:
                 {
                     if (!isLerpingDone)
-                        CameraLerpZ(-30);
+                        CameraLerpZ(-25);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position,new Vector3(0, 8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
                     TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 180),2.0f * Time.deltaTime);
                     
@@ -198,19 +195,19 @@ public class Menu_Manager : MonoBehaviour {
     }
     void Expand(GameObject _object) //Game Object git big and moves it to the right a little (Only for the Main Menu)
     {
-        for(int x = 0;x < 10; ++x)
+        for(int x = 0;x < 100; ++x)
         {
-            //Debug.Log(_object.transform.localScale.x);
-            _object.transform.position = new Vector3((_object.transform.position.x + 0.08f), _object.transform.position.y, _object.transform.position.z);
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x + 0.02f, _object.transform.localScale.y + 0.02f, _object.transform.localScale.z);
+            _object.transform.position = new Vector3((_object.transform.position.x + 0.008f), _object.transform.position.y, _object.transform.position.z);
+            _object.transform.localScale = new Vector3(_object.transform.localScale.x + 0.002f, _object.transform.localScale.y + 0.002f, _object.transform.localScale.z);
         }
     }
     void Shrink(GameObject _object)//Game Object goes back to its original size and goes back to to its original position (Only for the Main Menu)
     {
-        for (int x = 0; x < 10; ++x)
+        for (int x = 0; x < 100; ++x)
         {
-            _object.transform.position = new Vector3((_object.transform.position.x - 0.08f), _object.transform.position.y, _object.transform.position.z);
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.02f, _object.transform.localScale.y - 0.02f, _object.transform.localScale.z);
+            _object.transform.position = new Vector3((_object.transform.position.x - 0.008f), _object.transform.position.y, _object.transform.position.z);
+            _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.002f, _object.transform.localScale.y - 0.002f, _object.transform.localScale.z);
+            
         }
     }
     //**MISC FUNCTIONS**//
@@ -236,8 +233,14 @@ public class Menu_Manager : MonoBehaviour {
             isLerpingDone = true;
         }
 
-        Debug.Log("C " + isCameraPeak);
-        Debug.Log("B " + isAtTheBottom);
-        Debug.Log("L" + isLerpingDone);
+        //Debug.Log("C " + isCameraPeak);
+        //Debug.Log("B " + isAtTheBottom);
+        //Debug.Log("L" + isLerpingDone);
     }
+    IEnumerator Wait()
+    {
+        Debug.Log("wait");
+        yield return new WaitForSeconds(0.01f);
+    }
+
 }

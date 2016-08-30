@@ -5,7 +5,7 @@ public class Title_PressEnter_Flasher : MonoBehaviour {
 
     private bool isLightingUp = true;
     private bool EnterPressed = false;
-    private bool isDoneBeingPressed = false;
+    //private bool isDoneBeingPressed = false;
 
     public GameObject CoolThing_Shadow;
 

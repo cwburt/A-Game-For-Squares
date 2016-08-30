@@ -27,7 +27,7 @@ public class Main_Square_Spawner_Movement : MonoBehaviour {
         TimeCounter++;
         if (fade != 1f)
         {
-            fade += .1f;
+            fade += .03f;
             Color col = opac.color;
             col.a = fade;
             opac.color = col;
@@ -37,13 +37,13 @@ public class Main_Square_Spawner_Movement : MonoBehaviour {
         {
             if (TimeCounter % 2 == 1)
             {
-                transform.Rotate(0, 0, -5.0f);//Rotates 5 Degrees Counter Clockwise
-                transform.position = new Vector2((transform.position.x + 0.03f), transform.position.y);//Moves Right
+                transform.Rotate(0, 0, -6.0f);//Rotates 5 Degrees Counter Clockwise
+                transform.position = new Vector2((transform.position.x + 0.06f), transform.position.y);//Moves Right
 
             }
             if (TimeCounter == 5)
             {
-                transform.localScale = new Vector2((transform.localScale.x - 0.02f), (transform.localScale.y - 0.02f));// Scales Down
+               transform.localScale = new Vector2((transform.localScale.x - 0.005f), (transform.localScale.y - 0.005f));// Scales Down
                 TimeCounter = 0;
             }
         }

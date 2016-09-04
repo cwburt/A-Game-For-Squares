@@ -5,6 +5,9 @@ public class Ship : Entity
 {
     [SerializeField]
     GameObject bullet, Gun;
+    
+    [SerializeField]
+    ParticleSystem LeftThrust, RightThrust;
 
     [SerializeField]
     Vector3 StartPos;
@@ -20,7 +23,7 @@ public class Ship : Entity
         base.Start();
 
         if (speed <= 0)
-            speed = 2.4f;
+            speed = 4.8f;
 
         if (FireRate <= 0)
             FireRate = .2f;
@@ -39,19 +42,35 @@ public class Ship : Entity
             
         
 
-        //Movement on directional
+        //Movement on directional. Also handles thruster particle start and stops
         if (Input.GetKey("right"))
         {
-            //transform.Rotate(0, 0, -(speed));
+            if (LeftThrust.isPlaying)
+                LeftThrust.Stop();
+
             transform.RotateAround(Vector3.zero, Vector3.forward, speed);
+
+            RightThrust.Play();
         }
         else if (Input.GetKey("left"))
         {
-            //transform.Rotate(0, 0, speed);
+            if (RightThrust.isPlaying)
+                RightThrust.Stop();
+
             transform.RotateAround(Vector3.zero, Vector3.back, speed);
+
+            LeftThrust.Play();
+        }
+        else
+        {
+            if (LeftThrust.isPlaying)
+                LeftThrust.Stop();
+
+            if (RightThrust.isPlaying)
+                RightThrust.Stop();
         }
 
-        if(Input.GetKey("space") && canFire)
+        if (Input.GetKey("space") && canFire)
         {
             StartPos = new Vector2(Gun.transform.position.x, Gun.transform.position.y);
             Instantiate(bullet, StartPos, Gun.transform.rotation);

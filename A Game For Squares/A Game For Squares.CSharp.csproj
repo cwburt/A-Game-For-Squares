@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -72,6 +66,7 @@
     <Compile Include="Assets\Scripts\Game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Game\Entity.cs" />
     <Compile Include="Assets\Scripts\Game\Ship.cs" />
+    <Compile Include="Assets\Scripts\Game\Vortex.cs" />
     <Compile Include="Assets\Scripts\Menu\Main\SquareSpawner\Main_Square_Spawner_LEFTandRIGHT.cs" />
     <Compile Include="Assets\Scripts\Menu\Main\SquareSpawner\Main_Square_Spawner_Movement.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu_Manager.cs" />

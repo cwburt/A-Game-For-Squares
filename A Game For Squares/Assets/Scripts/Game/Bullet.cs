@@ -18,5 +18,8 @@ public class Bullet : MonoBehaviour
         Vector3 velocity = new Vector3(0, BulletSpeed * Time.deltaTime, 0);
         pos += transform.rotation * velocity;
         transform.position = pos;
+
+        if (transform.position.x >= 6 || transform.position.x <= -6 || transform.position.y >= 6 || transform.position.y <= -6)
+            Destroy(gameObject);
     }
 }

@@ -47,7 +47,7 @@ GameObject:
   - 65: {fileID: 6554832}
   m_Layer: 0
   m_Name: Ship_1
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,17 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df28f01fd19aaa944b0347950a246085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  isAlive: 0
   bullet: {fileID: 135270, guid: 87ca520b6e57900459750daa612f1716, type: 2}
   Gun: {fileID: 134618}
-  LeftThrust: {fileID: 0}
-  RightThrust: {fileID: 0}
+  LeftThrust: {fileID: 19829322}
+  RightThrust: {fileID: 19835312}
   StartPos: {x: 0, y: 0, z: 0}
   speed: 0
   FireRate: 0
   internalCounter: 0
   canFire: 0
+  HP: 0
+  isAlive: 0
 --- !u!198 &19829322
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -220,14 +220,14 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 0
   scalingMode: 1
   InitialModule:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 0.25
+      scalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1719,14 +1719,14 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 0
   scalingMode: 1
   InitialModule:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 0.25
+      scalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3278,7 +3278,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 15ea43a6479c2b34190d1060ca22a1ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

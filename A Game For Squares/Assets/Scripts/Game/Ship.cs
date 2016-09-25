@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ship : Entity
+public class Ship : MonoBehaviour
 {
     [SerializeField]
     GameObject bullet, Gun;
@@ -18,9 +18,12 @@ public class Ship : Entity
     [SerializeField]
     bool canFire;
 
-    protected override void Start()
+    public float HP;
+    public bool isAlive;
+
+    void Start()
     {
-        base.Start();
+        isAlive = true;
 
         if (speed <= 0)
             speed = 4.8f;
@@ -29,6 +32,12 @@ public class Ship : Entity
             FireRate = .2f;
 
         internalCounter = FireRate;
+    }
+
+    void Update()
+    {
+        if (HP <= 0)
+            isAlive = false;
     }
 
     void FixedUpdate ()

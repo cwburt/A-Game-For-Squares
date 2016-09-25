@@ -7,7 +7,7 @@ public class Vortex : MonoBehaviour
     GameObject Asteroid;
 
     [SerializeField]
-    float RotateSpeed, FadeSpeed, ScaleSpeed, SpawnMax, SpawnMin, AstMinSize, AstMaxSize;
+    float RotateSpeed, FadeSpeed, ScaleSpeed, SpawnMax, SpawnMin, AstMinSize, AstMaxSize, AstSpeedMin, AstSpeedMax;
 
     [SerializeField]
     bool Spawn;
@@ -42,9 +42,40 @@ public class Vortex : MonoBehaviour
 
         if (SpawnMax == 0)
         {
-            //Based on difficulty setting?
-            SpawnMax = 1.5f;
-            SpawnMin = .5f;
+            switch (Difficulty.ChosenSetting)
+            {
+                case (int)Setting.Easy:
+                    SpawnMax = 3f;
+                    SpawnMin = 1f;
+                    break;
+                case (int)Setting.Normal:
+                    SpawnMax = 2.75f;
+                    SpawnMin = .75f;
+                    break;
+                case (int)Setting.Hard:
+                    SpawnMax = 1.5f;
+                    SpawnMin = .5f;
+                    break;
+            }
+        }
+
+        if (AstSpeedMax == 0)
+        {
+            switch (Difficulty.ChosenSetting)
+            {
+                case (int)Setting.Easy:
+                    AstSpeedMax = 100;
+                    AstSpeedMin = 50;
+                    break;
+                case (int)Setting.Normal:
+                    AstSpeedMax = 150;
+                    AstSpeedMin = 75;
+                    break;
+                case (int)Setting.Hard:
+                    AstSpeedMax = 200;
+                    AstSpeedMin = 75;
+                    break;
+            }
         }
 
         InternalClock = 0;
@@ -68,8 +99,8 @@ public class Vortex : MonoBehaviour
             Vector3 ScaleSize = new Vector3(randomSize, randomSize, 1);
             temp.transform.localScale = ScaleSize;
 
-            float X = Random.Range(-1f, 1f) * Random.Range(75, 200);
-            float Y = Random.Range(-1f, 1f) * Random.Range(75, 200);
+            float X = Random.Range(-1f, 1f) * Random.Range(AstSpeedMin, AstSpeedMax);
+            float Y = Random.Range(-1f, 1f) * Random.Range(AstSpeedMin, AstSpeedMax);
             Vector3 Direction = new Vector3(X, Y, 0);
 
             temp.GetComponent<Rigidbody>().AddForce(Direction);

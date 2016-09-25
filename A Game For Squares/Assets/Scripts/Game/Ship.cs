@@ -31,26 +31,30 @@ public class Ship : MonoBehaviour
         if (FireRate <= 0)
             FireRate = .2f;
 
+        if (Difficulty.ChosenSetting == (int)Setting.Hard)
+            HP = 1;
+        else
+            HP = 2;
+
         internalCounter = FireRate;
     }
 
     void Update()
     {
         if (HP <= 0)
+        {
             isAlive = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 
     void FixedUpdate ()
     {
         if (internalCounter < FireRate)
-        {
             internalCounter += Time.deltaTime;
-        }
-        else if (!canFire)
+        else if (!canFire && !isAlive)
             canFire = true;
             
-        
-
         //Movement on directional. Also handles thruster particle start and stops
         if (Input.GetKey("right"))
         {
@@ -59,7 +63,8 @@ public class Ship : MonoBehaviour
 
             transform.RotateAround(Vector3.zero, Vector3.forward, speed);
 
-            RightThrust.Play();
+            if(isAlive)
+                RightThrust.Play();
         }
         else if (Input.GetKey("left"))
         {
@@ -68,7 +73,8 @@ public class Ship : MonoBehaviour
 
             transform.RotateAround(Vector3.zero, Vector3.back, speed);
 
-            LeftThrust.Play();
+            if(isAlive)
+                LeftThrust.Play();
         }
         else
         {
@@ -79,12 +85,21 @@ public class Ship : MonoBehaviour
                 RightThrust.Stop();
         }
 
-        if (Input.GetKey("space") && canFire)
+        if (Input.GetKey("space") && canFire && isAlive)
         {
             StartPos = new Vector2(Gun.transform.position.x, Gun.transform.position.y);
             Instantiate(bullet, StartPos, Gun.transform.rotation);
             internalCounter = 0;
             canFire = false;
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Asteroid")
+            HP--;
+
+        if (Difficulty.ChosenSetting != (int)Setting.Easy && other.tag == "Bullet")
+            HP--;
     }
 }

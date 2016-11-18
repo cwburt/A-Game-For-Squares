@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{76070362-1E29-0A80-84E2-7C71B1EDB62F}") = "A Game For Squares", "Assembly-CSharp.csproj", "{0032E081-8667-1927-39B0-3F2DAE926292}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A Game For Squares.CSharp", "A Game For Squares.CSharp.csproj", "{369E5829-9546-B07F-3624-379D02FA1DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0032E081-8667-1927-39B0-3F2DAE926292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0032E081-8667-1927-39B0-3F2DAE926292}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0032E081-8667-1927-39B0-3F2DAE926292}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0032E081-8667-1927-39B0-3F2DAE926292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{369E5829-9546-B07F-3624-379D02FA1DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{369E5829-9546-B07F-3624-379D02FA1DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{369E5829-9546-B07F-3624-379D02FA1DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{369E5829-9546-B07F-3624-379D02FA1DFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

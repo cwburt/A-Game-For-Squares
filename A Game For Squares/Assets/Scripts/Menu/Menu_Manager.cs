@@ -29,6 +29,11 @@ public class Menu_Manager : MonoBehaviour {
     GameObject[] MainSelections;// An Array of Items in the Array
 
     //**OPTIONS**//
+    private int OptionsIndex;
+    [SerializeField]
+    Sprite[] Numbers;
+    [SerializeField]
+    GameObject[] OptionSelections;
     //**CONTROLS**//
     //**QUIT**//
     private int QuitIndex;
@@ -90,16 +95,17 @@ public class Menu_Manager : MonoBehaviour {
 
         //controls//
 
+        //options//
+        OptionsIndex = 0;
+        OptionSelections[0].GetComponent<SpriteRenderer>().sprite = Numbers[5];
+        OptionSelections[1].GetComponent<SpriteRenderer>().sprite = Numbers[5];
         //quit//
         QuitIndex = 0;
         Expand_Quit(QuitSelections[prop_QuitIndex]);
 
 
         //misc//
-        //isCameraPeak = false;
-        //isAtTheBottom = false;
 
-        //isLerpingDone = false;
     }
     void Update ()
     {
@@ -117,37 +123,25 @@ public class Menu_Manager : MonoBehaviour {
                 break;
             case MENU.Main:
                 {
-                    //if (!isLerpingDone)
-                    //    CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(0, -8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
-                    //TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 0), 2.0f * Time.deltaTime);
                     MainMenuSelection();
                 }
                 break;
             case MENU.Options:
                 {
-                    //if (!isLerpingDone)
-                    //    CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
-                    //TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 90), 2.0f * Time.deltaTime);
+                    OptionSelection();
                 }
                 break;
             case MENU.Controls:
                 {
-                    //if (!isLerpingDone)
-                    //    CameraLerpZ(-20);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position, new Vector3(-8, 0, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
-                    //TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 270), 2.0f * Time.deltaTime);
                 }
                 break;
             case MENU.Quit:
                 {
-                    //if (!isLerpingDone)
-                    //    CameraLerpZ(-25);
                     TheCamera.transform.position = Vector3.Lerp(TheCamera.transform.position,new Vector3(0, 8, TheCamera.transform.position.z), 2.0f * Time.deltaTime);
-                    //TheCamera.transform.eulerAngles = Vector3.Lerp(TheCamera.transform.eulerAngles, new Vector3(0, 0, 180), 2.0f * Time.deltaTime);
-                    QuitSelection();
-                    
+                    QuitSelection();   
                 }
                 break;
         }
@@ -229,6 +223,11 @@ public class Menu_Manager : MonoBehaviour {
             _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.002f, _object.transform.localScale.y - 0.002f, _object.transform.localScale.z);
             
         }
+    }
+    //**OPTION MENU FUNCTIONS**//
+    void OptionSelection()
+    {
+
     }
     //**QUIT MENU FUNCTIONS**//
     void QuitSelection()

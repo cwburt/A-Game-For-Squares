@@ -45,9 +45,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Game\Asteroid.cs" />
      <Compile Include="Assets\Scripts\Game\Bullet.cs" />
-     <Compile Include="Assets\Scripts\Game\Entity.cs" />
+     <Compile Include="Assets\Scripts\Game\Difficulty.cs" />
      <Compile Include="Assets\Scripts\Game\Ship.cs" />
+     <Compile Include="Assets\Scripts\Game\Vortex.cs" />
      <Compile Include="Assets\Scripts\Menu\Main\SquareSpawner\Main_Square_Spawner_LEFTandRIGHT.cs" />
      <Compile Include="Assets\Scripts\Menu\Main\SquareSpawner\Main_Square_Spawner_Movement.cs" />
      <Compile Include="Assets\Scripts\Menu\Menu_Manager.cs" />

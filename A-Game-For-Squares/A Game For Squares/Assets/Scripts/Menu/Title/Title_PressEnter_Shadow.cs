@@ -14,9 +14,9 @@ public class Title_PressEnter_Shadow : MonoBehaviour {
     }	
 	// Update is called once per frame
 	void Update () {
-        transform.localScale = new Vector2(transform.localScale.x + 0.008f, transform.localScale.y + 0.016f);
+        transform.localScale = new Vector2(transform.localScale.x + 0.008f, transform.localScale.y + 0.008f);
 
-        fade -= .02f;
+        fade -= .03f;
         Color col = opac.color;
         col.a = fade;
         opac.color = col;

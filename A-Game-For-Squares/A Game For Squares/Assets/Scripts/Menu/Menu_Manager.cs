@@ -98,7 +98,7 @@ public class Menu_Manager : MonoBehaviour {
 
         //options//
         OptionsIndex = 0;
-        Expand_Options(OptionSelections[OptionsIndex]);
+        Expand(OptionSelections[OptionsIndex],0.001f);
 
         for(int x = 0; x < OptionSelections.Length - 1;++x)
             OptionSelections[x].GetComponent<SpriteRenderer>().sprite = Numbers[VolValues[x]];
@@ -106,7 +106,7 @@ public class Menu_Manager : MonoBehaviour {
 
         //quit//
         QuitIndex = 0;
-        Expand_Quit(QuitSelections[prop_QuitIndex]);
+        Expand(QuitSelections[prop_QuitIndex],0.002f);
 
 
         //misc//
@@ -156,32 +156,39 @@ public class Menu_Manager : MonoBehaviour {
     {
         if(firstGo == true)
         {
-            Expand_Main(MainSelections[prop_MainIndex]);
+            Expand(MainSelections[prop_MainIndex], 0.002f);
+            Main_Selection_Reposition(MainSelections[prop_MainIndex], true);
             MainSelections[prop_MainIndex].transform.GetChild(0).gameObject.SetActive(true);// Turn on A E S T H E T I C Spawners
             firstGo = false;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && prop_MainIndex < MainSelections.Length - 1)
         {
-            Shrink_Main(MainSelections[prop_MainIndex]);
+            Shrink(MainSelections[prop_MainIndex],0.002f);
+            Main_Selection_Reposition(MainSelections[prop_MainIndex], false);
             MainSelections[prop_MainIndex].transform.GetChild(0).gameObject.SetActive(false);
 
             prop_MainIndex += 1;
             if (prop_MainIndex == MainSelections.Length)
                 prop_MainIndex = 0;
 
-            Expand_Main(MainSelections[prop_MainIndex]);
+            Expand(MainSelections[prop_MainIndex], 0.002f);
+            Main_Selection_Reposition(MainSelections[prop_MainIndex], true);
+
             MainSelections[prop_MainIndex].transform.GetChild(0).gameObject.SetActive(true);// Turn on A E S T H E T I C Spawners
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && prop_MainIndex > 0)
         {
+            Shrink(MainSelections[prop_MainIndex],0.002f);
+            Main_Selection_Reposition(MainSelections[prop_MainIndex], false);
             MainSelections[prop_MainIndex].transform.GetChild(0).gameObject.SetActive(false);
-            Shrink_Main(MainSelections[prop_MainIndex]);
 
             prop_MainIndex -= 1;
             if (prop_MainIndex == -1)
                 prop_MainIndex = MainSelections.Length - 1;
 
-            Expand_Main(MainSelections[prop_MainIndex]);
+            Expand(MainSelections[prop_MainIndex],0.002f);
+            Main_Selection_Reposition(MainSelections[prop_MainIndex], true);
+
             MainSelections[prop_MainIndex].transform.GetChild(0).gameObject.SetActive(true);// Turn on A E S T H E T I C Spawners
         }
 
@@ -212,21 +219,22 @@ public class Menu_Manager : MonoBehaviour {
             }
         }
     }
-    void Expand_Main(GameObject _object) //Game Object git big and moves it to the right a little (Only for the Main Menu)
+    void Main_Selection_Reposition(GameObject _object, bool _selected)
     {
-        for(int x = 0;x < 100; ++x)
+        if (_selected)
         {
-            _object.transform.position = new Vector3((_object.transform.position.x + 0.008f), _object.transform.position.y, _object.transform.position.z);
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x + 0.002f, _object.transform.localScale.y + 0.002f, _object.transform.localScale.z);
+            for (int x = 0; x < 100; ++x)
+            {
+                _object.transform.position = new Vector3((_object.transform.position.x + 0.008f), _object.transform.position.y, _object.transform.position.z);
+            }
         }
-    }
-    void Shrink_Main(GameObject _object)//Game Object goes back to its original size and goes back to to its original position (Only for the Main Menu)
-    {
-        for (int x = 0; x < 100; ++x)
+        else
         {
-            _object.transform.position = new Vector3((_object.transform.position.x - 0.008f), _object.transform.position.y, _object.transform.position.z);
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.002f, _object.transform.localScale.y - 0.002f, _object.transform.localScale.z);
-            
+            for (int x = 0; x < 100; ++x)
+            {
+                _object.transform.position = new Vector3((_object.transform.position.x - 0.008f), _object.transform.position.y, _object.transform.position.z);
+            }
+
         }
     }
     //**OPTION MENU FUNCTIONS**//
@@ -234,19 +242,20 @@ public class Menu_Manager : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Shrink_Options(OptionSelections[OptionsIndex]);
+            Shrink(OptionSelections[OptionsIndex],0.001f);
             OptionsIndex -= 1;
             if (OptionsIndex == -1)
                 OptionsIndex = OptionSelections.Length - 1;
-            Expand_Options(OptionSelections[OptionsIndex]);
+            Expand(OptionSelections[OptionsIndex],0.001f);
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Shrink_Options(OptionSelections[OptionsIndex]);
+            Shrink(OptionSelections[OptionsIndex],0.001f);
             OptionsIndex += 1;
             if (OptionsIndex == OptionSelections.Length)
                 OptionsIndex = 0;
-            Expand_Options(OptionSelections[OptionsIndex]);
+            Expand(OptionSelections[OptionsIndex], 0.001f);
+
         }
         else if (OptionsIndex != OptionSelections.Length - 1)
         {
@@ -259,31 +268,10 @@ public class Menu_Manager : MonoBehaviour {
         }
         else if(OptionsIndex == OptionSelections.Length - 1 && Input.GetKeyDown(KeyCode.Return))
         {
-            Shrink_Options(OptionSelections[OptionsIndex]);
+            Shrink(OptionSelections[OptionsIndex],0.001f);
             OptionsIndex = 0;
-            Expand_Options(OptionSelections[OptionsIndex]);
+            Expand(OptionSelections[OptionsIndex], 0.001f);
             CurrentMenu = MENU.Main;
-        }
-
-
-
-
-
-
-
-    }
-    void Shrink_Options(GameObject _object)
-    {
-        for (int x = 0; x < 100; ++x)
-        {
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.001f, _object.transform.localScale.y - 0.001f, _object.transform.localScale.z);
-        }
-    }
-    void Expand_Options(GameObject _object)
-    {
-        for (int x = 0; x < 100; ++x)
-        {
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x + 0.001f, _object.transform.localScale.y + 0.001f, _object.transform.localScale.z);
         }
     }
     //**QUIT MENU FUNCTIONS**//
@@ -291,19 +279,19 @@ public class Menu_Manager : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Shrink_Quit(QuitSelections[prop_QuitIndex]);
+            Shrink(QuitSelections[prop_QuitIndex],0.002f);
             prop_QuitIndex += 1;
             if (prop_QuitIndex == QuitSelections.Length)
                 prop_QuitIndex = 0;
-            Expand_Quit(QuitSelections[prop_QuitIndex]);
+            Expand(QuitSelections[prop_QuitIndex],0.002f);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Shrink_Quit(QuitSelections[prop_QuitIndex]);
+            Shrink(QuitSelections[prop_QuitIndex],0.002f);
             prop_QuitIndex -= 1;
             if (prop_QuitIndex == -1)
                 prop_QuitIndex = QuitSelections.Length - 1;
-            Expand_Quit(QuitSelections[prop_QuitIndex]);
+            Expand(QuitSelections[prop_QuitIndex],0.002f);
         }
         if(Input.GetKeyDown(KeyCode.Return))
         {
@@ -318,27 +306,29 @@ public class Menu_Manager : MonoBehaviour {
             }
         }
     }
-    void Expand_Quit(GameObject _object)
-    {
-        for (int x = 0; x < 100; ++x)
-        {
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x + 0.002f, _object.transform.localScale.y + 0.002f, _object.transform.localScale.z);
-        }
-    }
-    void Shrink_Quit(GameObject _object)
-    {
-        for (int x = 0; x < 100; ++x)
-        {
-            _object.transform.localScale = new Vector3(_object.transform.localScale.x - 0.002f, _object.transform.localScale.y - 0.002f, _object.transform.localScale.z);
-        }
-    }
+
 
 
 
 
 
     //**MISC FUNCTIONS**//
-
+    void Shrink(GameObject _object, float _scaleRate)
+    {
+        for (int x = 0; x < 100; ++x)
+        {
+            //_object.transform.position = new Vector3((_object.transform.position.x - 0.008f), _object.transform.position.y, _object.transform.position.z);
+            _object.transform.localScale = new Vector3(_object.transform.localScale.x - _scaleRate, _object.transform.localScale.y - _scaleRate, _object.transform.localScale.z);
+        }
+    }
+    void Expand(GameObject _object, float _scaleRate)
+    {
+        for (int x = 0; x < 100; ++x)
+        {
+            //_object.transform.position = new Vector3((_object.transform.position.x - 0.008f), _object.transform.position.y, _object.transform.position.z);
+            _object.transform.localScale = new Vector3(_object.transform.localScale.x + _scaleRate, _object.transform.localScale.y + _scaleRate, _object.transform.localScale.z);
+        }
+    }
     /*void CameraLerpZ(float To)
 {
    //Debug.Log(TheCamera.transform.position.z);

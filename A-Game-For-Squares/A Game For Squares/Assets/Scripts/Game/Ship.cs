@@ -24,6 +24,7 @@ public class Ship : MonoBehaviour
     void Start()
     {
         isAlive = true;
+        canFire = true;
 
         if (speed <= 0)
             speed = 4.8f;
@@ -52,7 +53,7 @@ public class Ship : MonoBehaviour
     {
         if (internalCounter < FireRate)
             internalCounter += Time.deltaTime;
-        else if (!canFire && !isAlive)
+        else if (!canFire && isAlive)
             canFire = true;
             
         //Movement on directional. Also handles thruster particle start and stops
@@ -97,7 +98,15 @@ public class Ship : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Asteroid")
+        {
             HP--;
+
+            if (LeftThrust.isPlaying)
+                LeftThrust.Stop();
+
+            if (RightThrust.isPlaying)
+                RightThrust.Stop();
+        }
 
         if (Difficulty.ChosenSetting != (int)Setting.Easy && other.tag == "Bullet")
             HP--;

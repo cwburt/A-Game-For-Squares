@@ -31,7 +31,7 @@ public class Asteroid : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet")
+        if (other.tag == "Bullet" || other.tag == "Ship")
         {
             //Calc Points
 

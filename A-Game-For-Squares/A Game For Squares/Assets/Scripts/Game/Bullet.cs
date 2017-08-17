@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 	void Start ()
     {
         if (BulletSpeed <= 0)
-            BulletSpeed = 10;
+            BulletSpeed = 10.2f;
 	}
 	
 	void Update ()
@@ -19,7 +19,13 @@ public class Bullet : MonoBehaviour
         pos += transform.rotation * velocity;
         transform.position = pos;
 
-        if (transform.position.x >= 6 || transform.position.x <= -6 || transform.position.y >= 6 || transform.position.y <= -6)
+        if (transform.position.x >= 13 || transform.position.x <= -13 || transform.position.y >= 13 || transform.position.y <= -13)
+            Destroy(gameObject);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag != "Bullet")
             Destroy(gameObject);
     }
 }

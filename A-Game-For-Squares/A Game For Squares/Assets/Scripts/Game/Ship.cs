@@ -46,6 +46,12 @@ public class Ship : MonoBehaviour
         {
             isAlive = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+            if (LeftThrust.isPlaying)
+                LeftThrust.Stop();
+
+            if (RightThrust.isPlaying)
+                RightThrust.Stop();
         }
     }
 
@@ -98,15 +104,7 @@ public class Ship : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Asteroid")
-        {
             HP--;
-
-            if (LeftThrust.isPlaying)
-                LeftThrust.Stop();
-
-            if (RightThrust.isPlaying)
-                RightThrust.Stop();
-        }
 
         if (Difficulty.ChosenSetting != (int)Setting.Easy && other.tag == "Bullet")
             HP--;

@@ -21,7 +21,7 @@ public class Asteroid : MonoBehaviour
         if (gameObject.GetComponent<SpriteRenderer>().color.a < 1)
             FadeIn();
 
-        if (transform.position.x >= 6 || transform.position.x <= -6 || transform.position.y >= 6 || transform.position.y <= -6)
+        if (transform.position.x >= 13 || transform.position.x <= -13 || transform.position.y >= 13 || transform.position.y <= -13)
         {
             //Calc Points
 
@@ -31,11 +31,18 @@ public class Asteroid : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet" || other.tag == "Ship")
+        if (other.tag == "Bullet")
         {
             //Calc Points
 
             Destroy(gameObject);
+        }
+        else if(other.tag == "Ship")
+        {
+            if(other.gameObject.GetComponent<Ship>().isAlive)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

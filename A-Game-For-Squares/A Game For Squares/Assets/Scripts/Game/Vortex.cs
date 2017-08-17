@@ -7,7 +7,7 @@ public class Vortex : MonoBehaviour
     GameObject Asteroid;
 
     [SerializeField]
-    float RotateSpeed, FadeSpeed, ScaleSpeed, SpawnMax, SpawnMin, AstMinSize, AstMaxSize, AstSpeedMin, AstSpeedMax;
+    float RotateSpeed, FadeSpeed, ScaleSpeed, SpawnMax, SpawnMin, AstMinSize, AstMaxSize, AstSpeedMin, AstSpeedMax, ScaleMin, ScaleMax;
 
     [SerializeField]
     bool Spawn;
@@ -24,6 +24,8 @@ public class Vortex : MonoBehaviour
         flip = true;
         Spawn = false;
         Opacity = GetComponent<SpriteRenderer>().color;
+        ScaleMin = transform.localScale.x - .5f;
+        ScaleMax = transform.localScale.y + .2f;
 
         if (FadeSpeed == 0)
             FadeSpeed = .005f;
@@ -35,10 +37,10 @@ public class Vortex : MonoBehaviour
             ScaleSpeed = 0.0025f;
 
         if (AstMinSize == 0)
-            AstMinSize = .5f;
+            AstMinSize = .75f;
 
         if (AstMaxSize == 0)
-            AstMaxSize = 1f;
+            AstMaxSize = 2f;
 
         if (SpawnMax == 0)
         {
@@ -118,9 +120,9 @@ public class Vortex : MonoBehaviour
 
     void Scale()
     {
-        if (transform.localScale.x >= .5f && transform.localScale.y >= .5f && flip)
+        if (transform.localScale.x >= ScaleMax && transform.localScale.y >= ScaleMax && flip)
             flip = false;
-        else if (transform.localScale.x < .2f && transform.localScale.y < .2f && !flip)
+        else if (transform.localScale.x < ScaleMin && transform.localScale.y < ScaleMin && !flip)
             flip = true;
 
         if (flip)
